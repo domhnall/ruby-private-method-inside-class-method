@@ -1,5 +1,3 @@
-require 'debug'
-
 module HasContent
   def has_content(field_name=:content)
     define_method "get_#{field_name}" do
@@ -12,22 +10,28 @@ module HasContent
       instance_variable_set("@#{field_name}", content)
     end
 
-    #private
+    # This is the original implementation.
+    # It works, but it doesn't actually render the Box#log method as
+    # private!
+    # Comment out this section when using the solution beneath
+    # ORIGINAL IMPLEMENTATION
+    private
 
-    #define_method "log" do |msg|
-    #  puts "Logging: #{msg}"
-    #end
-
-    #def log(msg)
-    #  puts "Logging: #{msg}"
-    #end
-
-    class_eval do
-      private
-
-      define_method "log" do |msg|
-        puts "Logging: #{msg}"
-      end
+    define_method "log" do |msg|
+      puts "Logging: #{msg}"
     end
+    # END ORIGINAL IMPLEMENTATION
+
+    # The solution is to use class_eval
+    # Uncomment the section below and rerun `> ruby main.rb`
+    # UPDATED IMPLEMENTATION
+    #class_eval do
+    #  private
+    #
+    #  define_method "log" do |msg|
+    #    puts "Logging: #{msg}"
+    #  end
+    #end
+    # END UPDATED IMPLEMENTATION
   end
 end
