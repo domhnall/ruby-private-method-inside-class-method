@@ -20,6 +20,7 @@ module HasContent
     define_method "log" do |msg|
       puts "Logging: #{msg}"
     end
+    #private :log # This fixes it also
     # END ORIGINAL IMPLEMENTATION
 
     # The solution is to use class_eval
